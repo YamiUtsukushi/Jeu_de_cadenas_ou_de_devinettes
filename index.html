@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+
+    <title>Jeu de devinette</title>
+
+</head>
+<body>
+
+    <div class="top-center">
+        <h1>Jeu de devinette</h1>
+
+        <div class="display">
+
+            <div id="timeLeft">60:00</div>
+                <div id="progressBarContainer">
+                    <div id="progressBar"></div>
+                </div>
+            <br>
+
+        </div>
+
+    </div>
+
+    <div class="allcontainer">
+    <div class="container">
+        <div class="left-wrapper">
+
+            <div id="ranking"></div>
+            <p id="bestScore"></p>
+
+
+            <input type="number" id="numberInput" min="100" max="999" readonly>
+            <div class="wrapper">
+                <div id="box">
+                    <div onclick="addNumber(1)">1</div>
+                    <div onclick="addNumber(2)">2</div>
+                    <div onclick="addNumber(3)">3</div>
+                    <div onclick="addNumber(4)">4</div>
+                    <div onclick="addNumber(5)">5</div>
+                    <div onclick="addNumber(6)">6</div>
+                    <div onclick="addNumber(7)">7</div>
+                    <div onclick="addNumber(8)">8</div>
+                    <div onclick="addNumber(9)">9</div>
+                    <div id="zero" onclick="addNumber(0)">0</div>
+                </div>
+            </div>
+
+
+            <button onclick="resetInput()">Effacer</button>
+
+        </div>
+
+    </div>
+
+    <div class="container2">
+        <div class="rigth-wrapper">
+
+            <div class="test1">
+
+                <div class="hint-btn" onclick="showHint()">
+                    <p>Hint</p>
+
+                </div>
+
+                <p id="remainingAttempts"></p>
+
+
+
+            </div>
+
+            <div id="history"></div>
+        </div>
+    </div>
+
+    <div class="container2">
+
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
+        </div>
+
+        <div id="rank"></div>
+
+    </div>
+
+    <div id="timeRanking" class="ranking"></div>
+            <div id="scoreboard"></div>
+            <ul id="usernames"></ul>
+
+
+
+
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
