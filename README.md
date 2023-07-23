@@ -2,13 +2,14 @@ Voici les différentes fonctionnalités qu'il comporte:
 
 clickSound, successSound, failSound: ces objets Audio sont utilisés pour jouer différents sons lors d'événements spécifiques.
 
-secretNumber: C'est le nombre que l'utilisateur doit deviner. Il est généré de manière aléatoire par la fonction generateRandomNumber
+secretNumber: C'est le nombre que l'utilisateur doit deviner. Il est généré de manière aléatoire par la fonction generateRandomNumber.
+
+generateRandomNumber: Cette fonction génère un nombre aléatoire à trois chiffres qui devient le nombre secret.
 
 attempts, currentGuess, timeElapsed, maxTime, gameTimer, maxAttempts: Ces variables sont utilisées pour suivre l'état actuel du jeu.
 
 showHint: Cette fonction affiche les instructions du jeu.
 
-generateRandomNumber: Cette fonction génère un nombre aléatoire à trois chiffres qui devient le nombre secret.
 
 addNumber: Cette fonction est utilisée pour ajouter un nombre à la supposition actuelle de l'utilisateur et déclenche une nouvelle supposition lorsque l'utilisateur a entré trois chiffres.
 
