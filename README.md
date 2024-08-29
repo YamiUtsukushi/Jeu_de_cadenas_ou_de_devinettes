@@ -3,6 +3,8 @@
 
 Ce projet est une application interactive développée en HTML, CSS, et JavaScript. Le but du projet est de simuler un jeu ou une interaction basée sur des indices et des réponses, similaire à un jeu de cadenas ou de devinettes.
 
+Le jeu fonctionne en invitant l'utilisateur à deviner un nombre à trois chiffres dans un temps limité. L'utilisateur a un nombre maximum d'essais pour deviner le nombre. Si l'utilisateur devine le nombre correctement, il reçoit des applaudissements et le jeu se réinitialise. Si l'utilisateur n'arrive pas à deviner le nombre après un certain nombre d'essais ou si le temps est écoulé, le jeu se réinitialise et une blague est affichée.
+
 ## Prérequis
 
 Avant de pouvoir lancer ce projet, assurez-vous d'avoir les éléments suivants installés sur votre machine :
