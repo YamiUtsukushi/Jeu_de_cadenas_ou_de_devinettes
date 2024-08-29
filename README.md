@@ -64,13 +64,6 @@ Voici un aperçu de la structure des fichiers et des dossiers dans ce projet :
 
 ```
 cadenas/
-│
-├── assets/
-│   ├── start_screenshot.png
-│   ├── game_in_progress.png
-│   ├── success_screenshot.png
-│   └── failure_screenshot.png
-│
 ├── applaudissements.wav
 ├── clic.wav
 ├── dommage.wav
