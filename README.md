@@ -8,25 +8,25 @@ Un jeu de déduction de code secret, jouable directement dans le navigateur. Dev
 
 **Écran d'accueil — Choix du pseudo & difficulté**
 
-![Écran d'accueil](assets/accueil.png)
+![Écran d'accueil](assets/css/accueil.png)
 
 <br>
 
 **Partie en cours — Clavier, tentatives & classement**
 
-![Partie en cours](assets/partie.png)
+![Partie en cours](assets/css/partie.png)
 
 <br>
 
 **Modale d'aide — Comment jouer**
 
-![Comment jouer](assets/comment_jouer.png)
+![Comment jouer](assets/css/comment_jouer.png)
 
 <br>
 
 **Victoire 🎉**
 
-![Victoire](assets/victoire.png)
+![Victoire](assets/css/victoire.png)
 
 <br>
 
