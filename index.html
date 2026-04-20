@@ -1,101 +1,524 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Cadenas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-
-
-    <title>Jeu de devinette</title>
-
 </head>
 <body>
 
-    <div class="top-center">
-        <h1>Jeu de devinette</h1>
-
-        <div class="display">
-
-            <div id="timeLeft">60:00</div>
-                <div id="progressBarContainer">
-                    <div id="progressBar"></div>
-                </div>
-            <br>
-
-        </div>
-
+<!-- HEADER -->
+<header>
+    <div class="logo">🔐 Cada<span>nas</span></div>
+    <div class="header-controls">
+        <button class="icon-btn" id="themeBtn" title="Changer de thème">🌙</button>
+        <button class="icon-btn" id="hintBtn" title="Aide">❓</button>
+        <button class="icon-btn" id="changeUserBtn" title="Changer de joueur">👤</button>
     </div>
+</header>
 
-    <div class="allcontainer">
-    <div class="container">
-        <div class="left-wrapper">
+<!-- PSEUDO SETUP -->
+<div id="pseudoSetup">
+    <h2>Bienvenue !</h2>
+    <p>Entre ton pseudo et choisis ta difficulté pour commencer.</p>
+    <input type="text" id="pseudoInput" placeholder="Ton pseudo..." maxlength="16" autocomplete="off">
+    <div class="difficulty-grid">
+        <button class="diff-btn active" data-diff="easy">
+            <span class="diff-icon">🟢</span>
+            Facile<br>
+            <small>4 chiffres · 90s · 10 essais</small>
+        </button>
+        <button class="diff-btn" data-diff="normal">
+            <span class="diff-icon">🟡</span>
+            Normal<br>
+            <small>3 chiffres · 60s · 7 essais</small>
+        </button>
+        <button class="diff-btn" data-diff="hard">
+            <span class="diff-icon">🔴</span>
+            Difficile<br>
+            <small>3 chiffres · 30s · 5 essais</small>
+        </button>
+    </div>
+    <button class="btn btn-primary" id="startBtn">Commencer à jouer 🚀</button>
+</div>
 
-            <div id="ranking"></div>
-            <p id="bestScore"></p>
+<!-- GAME AREA -->
+<div id="gameArea">
 
+    <div class="game-grid">
 
-            <input type="number" id="numberInput" min="100" max="999" readonly>
-            <div class="wrapper">
-                <div id="box">
-                    <div onclick="addNumber(1)">1</div>
-                    <div onclick="addNumber(2)">2</div>
-                    <div onclick="addNumber(3)">3</div>
-                    <div onclick="addNumber(4)">4</div>
-                    <div onclick="addNumber(5)">5</div>
-                    <div onclick="addNumber(6)">6</div>
-                    <div onclick="addNumber(7)">7</div>
-                    <div onclick="addNumber(8)">8</div>
-                    <div onclick="addNumber(9)">9</div>
-                    <div id="zero" onclick="addNumber(0)">0</div>
-                </div>
+        <!-- COL 1: Keypad -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <div class="card-title" style="margin-bottom:0;">Ton code</div>
+                <div class="diff-badge" id="diffBadge">🟡 Normal</div>
             </div>
 
+            <div id="numberDisplay"></div>
+            <div id="keypad"></div>
 
-            <button onclick="resetInput()">Effacer</button>
-
+            <div class="hint-card">
+                🟢 Bonne position &nbsp;|&nbsp; 🟡 Mauvais endroit &nbsp;|&nbsp; 🔴 Absent
+            </div>
         </div>
 
-    </div>
-
-    <div class="container2">
-        <div class="rigth-wrapper">
-
-            <div class="test1">
-
-                <div class="hint-btn" onclick="showHint()">
-                    <p>Hint</p>
-
+        <!-- COL 2: Tentatives + Historique -->
+        <div class="card col-history">
+            <div class="tab-bar">
+                <button class="tab active" id="tabGuess">🎯 Tentatives</button>
+                <button class="tab" id="tabHistory">📜 Historique</button>
+            </div>
+            <div id="guessPanel">
+                <div id="history">
+                    <div class="empty-state"><div class="es-icon">🎯</div>Tes tentatives apparaîtront ici</div>
                 </div>
+            </div>
+            <div id="historyPanel" style="display:none;">
+                <div id="globalHistory"></div>
+            </div>
+        </div>
 
-                <p id="remainingAttempts"></p>
-
-
-
+        <!-- COL 3: Timer + Scores -->
+        <div class="card timer-card">
+            <div class="card-title">Temps restant</div>
+            <div id="timerDisplay">60:00</div>
+            <div class="timer-bar-wrap">
+                <div id="timerBar"></div>
+            </div>
+            <div class="stats-row" style="margin-bottom:20px;">
+                <span>Essais restants : <b id="attemptsLeft">7</b></span>
+                <span>Joueur : <b id="playerName">—</b></span>
             </div>
 
-            <div id="history"></div>
-        </div>
-    </div>
-
-    <div class="container2">
-
-        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
+            <div class="card-title">Classement</div>
+            <div id="scoreList">
+                <div class="empty-state"><div class="es-icon">🏆</div>Aucun score encore</div>
+            </div>
         </div>
 
-        <div id="rank"></div>
-
     </div>
-
-    <div id="timeRanking" class="ranking"></div>
-            <div id="scoreboard"></div>
-            <ul id="usernames"></ul>
-
-
-
 
 </div>
 
-    <script src="script.js"></script>
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <span class="modal-icon" id="modalIcon">🎉</span>
+        <h2 id="modalTitle">Titre</h2>
+        <p id="modalText">Texte</p>
+        <div class="modal-buttons">
+            <button class="btn btn-primary" id="modalPlay">Rejouer</button>
+            <button class="btn btn-secondary" id="modalMenu">Menu principal</button>
+        </div>
+    </div>
+</div>
+
+<!-- CONFETTI -->
+<div class="confetti-wrap" id="confettiWrap"></div>
+
+<script>
+// ===== AUDIO =====
+const clickSound = new Audio('clic.wav');
+const successSound = new Audio('applaudissements.wav');
+const failSound = new Audio('dommage.wav');
+
+// ===== DIFFICULTIES =====
+const DIFFICULTIES = {
+    easy:   { digits: 4, maxTime: 90,  maxAttempts: 10, label: '🟢 Facile' },
+    normal: { digits: 3, maxTime: 60,  maxAttempts: 7,  label: '🟡 Normal' },
+    hard:   { digits: 3, maxTime: 30,  maxAttempts: 5,  label: '🔴 Difficile' },
+};
+
+// ===== STATE =====
+let state = {
+    pseudo: '',
+    difficulty: 'normal',
+    secretNumber: [],
+    attempts: 0,
+    currentGuess: [],
+    timeElapsed: 0,
+    gameTimer: null,
+    running: false,
+};
+
+// ===== DOM =====
+const $ = id => document.getElementById(id);
+
+// ===== THEME =====
+let darkMode = true;
+$('themeBtn').onclick = () => {
+    darkMode = !darkMode;
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    $('themeBtn').textContent = darkMode ? '🌙' : '☀️';
+};
+
+// ===== DIFFICULTY SELECTION =====
+let selectedDiff = 'easy';
+document.querySelectorAll('.diff-btn').forEach(btn => {
+    btn.onclick = () => {
+        document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedDiff = btn.dataset.diff;
+    };
+});
+
+// ===== START =====
+$('startBtn').onclick = () => {
+    const pseudo = $('pseudoInput').value.trim();
+    if (!pseudo) { $('pseudoInput').focus(); $('pseudoInput').style.borderColor = 'var(--danger)'; return; }
+    $('pseudoInput').style.borderColor = '';
+    state.pseudo = pseudo;
+    state.difficulty = selectedDiff;
+    $('pseudoSetup').style.display = 'none';
+    $('gameArea').style.display = 'flex';
+    buildKeypad();
+    startGame();
+};
+
+$('changeUserBtn').onclick = () => {
+    stopTimer();
+    $('gameArea').style.display = 'none';
+    $('pseudoSetup').style.display = 'block';
+};
+
+// ===== KEYPAD =====
+function buildKeypad() {
+    const kp = $('keypad');
+    kp.innerHTML = '';
+    [1,2,3,4,5,6,7,8,9].forEach(n => {
+        const d = document.createElement('div');
+        d.className = 'key';
+        d.textContent = n;
+        d.onclick = () => addNumber(n);
+        kp.appendChild(d);
+    });
+    // Zero row
+    const empty = document.createElement('div'); empty.className = 'key'; empty.style.visibility='hidden'; kp.appendChild(empty);
+    const zero = document.createElement('div'); zero.className = 'key key-zero'; zero.textContent = '0'; zero.onclick = () => addNumber(0); kp.appendChild(zero);
+    const del = document.createElement('div'); del.className = 'key key-delete'; del.textContent = '⌫'; del.onclick = deleteLastDigit; kp.appendChild(del);
+}
+
+// ===== KEYBOARD SUPPORT =====
+document.addEventListener('keydown', e => {
+    if (!state.running) return;
+    if (e.key >= '0' && e.key <= '9') addNumber(parseInt(e.key));
+    if (e.key === 'Backspace') deleteLastDigit();
+});
+
+// ===== GAME START =====
+function startGame() {
+    const diff = DIFFICULTIES[state.difficulty];
+    state.secretNumber = generateRandomNumber(diff.digits);
+    state.attempts = 0;
+    state.currentGuess = [];
+    state.timeElapsed = 0;
+    state.running = true;
+
+    $('diffBadge').textContent = diff.label;
+    $('playerName').textContent = state.pseudo;
+    $('history').innerHTML = '<div class="empty-state"><div class="es-icon">🎯</div>Tes tentatives apparaîtront ici</div>';
+    updateDisplaySlots();
+    updateAttempts();
+    updateTimerDisplay();
+    $('timerBar').style.width = '100%';
+    $('timerBar').classList.remove('urgent');
+    $('timerDisplay').classList.remove('urgent');
+
+    stopTimer();
+    state.gameTimer = setInterval(tick, 100);
+}
+
+function stopTimer() {
+    if (state.gameTimer) { clearInterval(state.gameTimer); state.gameTimer = null; }
+}
+
+function generateRandomNumber(digits) {
+    const pool = [1,2,3,4,5,6,7,8,9,0];
+    const result = [];
+    for (let i = 0; i < digits; i++) {
+        const idx = Math.floor(Math.random() * pool.length);
+        result.push(pool[idx]);
+        pool.splice(idx, 1);
+    }
+    return result;
+}
+
+// ===== TIMER =====
+function tick() {
+    const diff = DIFFICULTIES[state.difficulty];
+    state.timeElapsed += 0.1;
+    const remaining = Math.max(0, diff.maxTime - state.timeElapsed);
+    const pct = (remaining / diff.maxTime) * 100;
+
+    updateTimerDisplay(remaining);
+    $('timerBar').style.width = pct + '%';
+
+    const urgent = remaining <= 10;
+    $('timerBar').classList.toggle('urgent', urgent);
+    $('timerDisplay').classList.toggle('urgent', urgent);
+
+    if (remaining <= 0) {
+        stopTimer();
+        state.running = false;
+        setTimeout(() => showModal('⏰', 'Temps écoulé !',
+            `Le nombre secret était <b>${state.secretNumber.join('')}</b>.<br>Dommage, retente ta chance !`,
+            true), 300);
+    }
+}
+
+function updateTimerDisplay(remaining) {
+    const diff = DIFFICULTIES[state.difficulty];
+    const r = remaining !== undefined ? remaining : diff.maxTime;
+    const s = Math.floor(r);
+    const ms = Math.floor((r % 1) * 10) * 10;
+    $('timerDisplay').textContent = `${s.toString().padStart(2,'0')}:${ms.toString().padStart(2,'0')}`;
+}
+
+// ===== INPUT =====
+function addNumber(n) {
+    if (!state.running) return;
+    const diff = DIFFICULTIES[state.difficulty];
+    if (state.currentGuess.length >= diff.digits) return;
+    clickSound.play().catch(()=>{});
+    state.currentGuess.push(n);
+    updateDisplaySlots();
+    if (state.currentGuess.length === diff.digits) {
+        setTimeout(guessNumber, 100);
+    }
+}
+
+function deleteLastDigit() {
+    if (!state.running) return;
+    state.currentGuess.pop();
+    updateDisplaySlots();
+}
+
+function updateDisplaySlots() {
+    const diff = DIFFICULTIES[state.difficulty];
+    const wrap = $('numberDisplay');
+    wrap.innerHTML = '';
+    for (let i = 0; i < diff.digits; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'digit-slot' + (i < state.currentGuess.length ? ' filled' : '');
+        slot.textContent = i < state.currentGuess.length ? state.currentGuess[i] : '';
+        wrap.appendChild(slot);
+    }
+}
+
+function updateAttempts() {
+    const diff = DIFFICULTIES[state.difficulty];
+    $('attemptsLeft').textContent = diff.maxAttempts - state.attempts;
+}
+
+// ===== GUESS =====
+function guessNumber() {
+    const diff = DIFFICULTIES[state.difficulty];
+    const userGuess = [...state.currentGuess];
+    state.currentGuess = [];
+    updateDisplaySlots();
+
+    const row = document.createElement('div');
+    row.className = 'guess-row';
+
+    let correctCount = 0;
+    const result = userGuess.map((digit, i) => {
+        if (digit === state.secretNumber[i]) { correctCount++; return 'correct'; }
+        if (state.secretNumber.includes(digit)) return 'wrong-position';
+        return 'wrong';
+    });
+
+    result.forEach((cls, i) => {
+        const d = document.createElement('div');
+        d.className = `guess-digit ${cls}`;
+        d.textContent = userGuess[i];
+        row.appendChild(d);
+    });
+
+    // attempt number badge
+    state.attempts++;
+    const badge = document.createElement('span');
+    badge.style.cssText = 'margin-left:auto;font-size:0.7rem;color:var(--text-muted);font-family:Space Mono,monospace;';
+    badge.textContent = `#${state.attempts}`;
+    row.appendChild(badge);
+
+    const hist = $('history');
+    if (hist.querySelector('.empty-state')) hist.innerHTML = '';
+    hist.prepend(row);
+    updateAttempts();
+
+    if (correctCount === diff.digits) {
+        stopTimer();
+        state.running = false;
+        successSound.play().catch(()=>{});
+        spawnConfetti();
+        const score = computeScore();
+        saveScore(score, true);
+        updateScoreboard();
+        saveToGlobalHistory(true);
+        setTimeout(() => showModal('🎉', 'Bravo !',
+            `Tu as trouvé <b>${state.secretNumber.join('')}</b> en <b>${state.attempts}</b> essai${state.attempts>1?'s':''} et <b>${state.timeElapsed.toFixed(1)}s</b> !<br><br>Score : <b>${score}</b> pts`, true), 400);
+    } else if (state.attempts >= diff.maxAttempts) {
+        stopTimer();
+        state.running = false;
+        failSound.play().catch(()=>{});
+        saveToGlobalHistory(false);
+        fetchJoke().then(joke => {
+            showModal('😅', 'Perdu !',
+                `Le nombre secret était <b>${state.secretNumber.join('')}</b>.<br><br>${joke}`, true);
+        });
+    }
+}
+
+// ===== SCORE =====
+function computeScore() {
+    const diff = DIFFICULTIES[state.difficulty];
+    const timePenalty = Math.floor(state.timeElapsed * 10);
+    const attemptBonus = (diff.maxAttempts - state.attempts) * 100;
+    const diffMultiplier = state.difficulty === 'hard' ? 2 : state.difficulty === 'normal' ? 1.5 : 1;
+    return Math.max(0, Math.floor((1000 + attemptBonus - timePenalty) * diffMultiplier));
+}
+
+function saveScore(score, won) {
+    if (!won) return;
+    const scores = JSON.parse(localStorage.getItem('cadenas_scores') || '[]');
+    scores.push({ name: state.pseudo, score, time: state.timeElapsed, attempts: state.attempts, diff: state.difficulty });
+    scores.sort((a,b) => b.score - a.score);
+    localStorage.setItem('cadenas_scores', JSON.stringify(scores.slice(0,20)));
+}
+
+function updateScoreboard() {
+    const scores = JSON.parse(localStorage.getItem('cadenas_scores') || '[]');
+    const list = $('scoreList');
+    if (!scores.length) { list.innerHTML = '<div class="empty-state"><div class="es-icon">🏆</div>Aucun score encore</div>'; return; }
+    const medals = ['gold','silver','bronze'];
+    list.innerHTML = scores.slice(0,10).map((s,i) => `
+        <div class="score-entry">
+            <div class="score-rank ${medals[i]||''}">${i+1}</div>
+            <div class="score-name">${s.name}</div>
+            <div class="score-time">${s.score} pts</div>
+            <div class="score-attempts">${s.attempts} essais · ${s.time.toFixed(1)}s</div>
+        </div>`).join('');
+}
+
+// ===== GLOBAL HISTORY =====
+function saveToGlobalHistory(won) {
+    const history = JSON.parse(localStorage.getItem('cadenas_history') || '[]');
+    history.unshift({
+        name: state.pseudo,
+        won,
+        attempts: state.attempts,
+        time: state.timeElapsed,
+        secret: state.secretNumber.join(''),
+        diff: state.difficulty,
+        date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' })
+    });
+    localStorage.setItem('cadenas_history', JSON.stringify(history.slice(0,50)));
+}
+
+function renderGlobalHistory() {
+    const history = JSON.parse(localStorage.getItem('cadenas_history') || '[]');
+    const el = $('globalHistory');
+    if (!history.length) { el.innerHTML = '<div class="empty-state"><div class="es-icon">📜</div>Aucune partie jouée</div>'; return; }
+    el.innerHTML = history.map(h => `
+        <div class="history-entry">
+            <div class="player-avatar">${h.name[0].toUpperCase()}</div>
+            <div class="he-name">${h.name}</div>
+            <div class="he-result ${h.won ? 'won-badge':'lost-badge'}">${h.won ? '✅ Gagné':'❌ Perdu'}</div>
+            <div class="he-result" style="color:var(--text-muted)">${h.attempts} essais · ${h.time.toFixed(1)}s</div>
+            <div class="he-date">${h.date}</div>
+        </div>`).join('');
+}
+
+// ===== TABS =====
+$('tabGuess').onclick = () => {
+    $('tabGuess').classList.add('active'); $('tabHistory').classList.remove('active');
+    $('guessPanel').style.display = ''; $('historyPanel').style.display = 'none';
+};
+$('tabHistory').onclick = () => {
+    $('tabHistory').classList.add('active'); $('tabGuess').classList.remove('active');
+    $('historyPanel').style.display = ''; $('guessPanel').style.display = 'none';
+    renderGlobalHistory();
+};
+
+// ===== JOKE API =====
+async function fetchJoke() {
+    try {
+        const r = await fetch('https://v2.jokeapi.dev/joke/Any?lang=fr&type=twopart&blacklistFlags=nsfw,racist,sexist');
+        const data = await r.json();
+        if (data.setup) return `😄 <i>${data.setup}<br>${data.punchline}</i>`;
+        return '😄 Continue comme ça, la prochaine sera la bonne !';
+    } catch {
+        return '😄 Continue comme ça, la prochaine sera la bonne !';
+    }
+}
+
+// ===== MODAL =====
+function showModal(icon, title, text, withReplay = false) {
+    $('modalIcon').textContent = icon;
+    $('modalTitle').textContent = title;
+    $('modalText').innerHTML = text;
+    $('modal').classList.add('open');
+}
+
+$('modalPlay').onclick = () => {
+    $('modal').classList.remove('open');
+    startGame();
+};
+$('modalMenu').onclick = () => {
+    $('modal').classList.remove('open');
+    stopTimer();
+    $('gameArea').style.display = 'none';
+    $('pseudoSetup').style.display = 'block';
+};
+
+// ===== HINT MODAL =====
+$('hintBtn').onclick = () => {
+    showModal('💡', 'Comment jouer',
+        `Clique sur les chiffres pour former le code secret.<br><br>
+        🟢 <b>Vert</b> = bon chiffre, bonne position<br>
+        🟡 <b>Orange</b> = bon chiffre, mauvaise position<br>
+        🔴 <b>Rouge</b> = chiffre absent<br><br>
+        Tu peux aussi utiliser ton <b>clavier</b> pour entrer les chiffres, et <b>Backspace</b> pour effacer.`);
+    $('modalPlay').style.display = 'none';
+    $('modalMenu').textContent = 'Fermer';
+    $('modalMenu').onclick = () => {
+        $('modal').classList.remove('open');
+        $('modalPlay').style.display = '';
+        $('modalMenu').textContent = 'Menu principal';
+        $('modalMenu').onclick = () => {
+            $('modal').classList.remove('open');
+            stopTimer();
+            $('gameArea').style.display = 'none';
+            $('pseudoSetup').style.display = 'block';
+        };
+    };
+};
+
+// ===== CONFETTI =====
+function spawnConfetti() {
+    const wrap = $('confettiWrap');
+    const colors = ['#05DBF2','#4ade80','#fbbf24','#f472b6','#a78bfa','#fff'];
+    for (let i = 0; i < 80; i++) {
+        const p = document.createElement('div');
+        p.className = 'confetti-piece';
+        p.style.cssText = `
+            left: ${Math.random()*100}%;
+            background: ${colors[Math.floor(Math.random()*colors.length)]};
+            width: ${6+Math.random()*8}px;
+            height: ${6+Math.random()*8}px;
+            border-radius: ${Math.random()>0.5?'50%':'2px'};
+            animation-duration: ${1.5+Math.random()*2}s;
+            animation-delay: ${Math.random()*0.5}s;
+        `;
+        wrap.appendChild(p);
+        setTimeout(() => p.remove(), 4000);
+    }
+}
+
+// ===== INIT =====
+updateScoreboard();
+</script>
 </body>
 </html>

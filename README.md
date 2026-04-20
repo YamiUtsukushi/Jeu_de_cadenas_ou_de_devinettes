@@ -1,96 +1,200 @@
+# 🔐 Jeu de Cadenas
 
-# Projet Cadenas
+Un jeu de déduction de code secret, jouable directement dans le navigateur. Devinez le nombre secret avant que le temps ne s'écoule !
 
-Ce projet est une application interactive développée en HTML, CSS, et JavaScript. Le but du projet est de simuler un jeu ou une interaction basée sur des indices et des réponses, similaire à un jeu de cadenas ou de devinettes.
+<br>
 
-Le jeu fonctionne en invitant l'utilisateur à deviner un nombre à trois chiffres dans un temps limité. L'utilisateur a un nombre maximum d'essais pour deviner le nombre. Si l'utilisateur devine le nombre correctement, il reçoit des applaudissements et le jeu se réinitialise. Si l'utilisateur n'arrive pas à deviner le nombre après un certain nombre d'essais ou si le temps est écoulé, le jeu se réinitialise et une blague est affichée.
+## 📸 Aperçu
 
-## Prérequis
+**Écran d'accueil — Choix du pseudo & difficulté**
 
-Avant de pouvoir lancer ce projet, assurez-vous d'avoir les éléments suivants installés sur votre machine :
+![Écran d'accueil](screenshots/accueil.png)
 
-- **Navigateur Web** : Le projet peut être exécuté directement dans un navigateur web moderne.
-- **Serveur local (facultatif)** : Pour tester l'application en environnement local, vous pouvez utiliser un serveur local comme [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) pour VS Code.
+<br>
 
-## Installation
+**Partie en cours — Clavier, tentatives & classement**
 
-Suivez les étapes ci-dessous pour installer et lancer le projet localement :
+![Partie en cours](screenshots/partie.png)
 
-1. **Cloner le dépôt** :
-   
-   Clonez ce dépôt sur votre machine locale en utilisant la commande suivante :
+<br>
 
-   ```bash
-   git clone https://github.com/YamiUtsukushi/cadenas.git
-   ```
+**Modale d'aide — Comment jouer**
 
-2. **Accéder au répertoire du projet** :
+![Comment jouer](screenshots/comment_jouer.png)
 
-   Déplacez-vous dans le répertoire du projet :
+<br>
 
-   ```bash
-   cd cadenas
-   ```
+**Victoire 🎉**
 
-3. **Ouvrir le fichier `index.html`** :
+![Victoire](screenshots/victoire.png)
 
-   Ouvrez le fichier `index.html` dans votre navigateur pour commencer à utiliser l'application.
-
-## Fonctionnalités de l'application
-
-Voici un aperçu des fonctionnalités disponibles dans ce projet :
-
-1. **clickSound, successSound, failSound** : Ces objets Audio sont utilisés pour jouer différents sons lors d'événements spécifiques.
-2. **secretNumber** : C'est le nombre que l'utilisateur doit deviner. Il est généré de manière aléatoire par la fonction `generateRandomNumber`.
-3. **generateRandomNumber** : Cette fonction génère un nombre aléatoire à trois chiffres qui devient le nombre secret.
-4. **attempts, currentGuess, timeElapsed, maxTime, gameTimer, maxAttempts** : Ces variables sont utilisées pour suivre l'état actuel du jeu.
-5. **showHint** : Cette fonction affiche les instructions du jeu.
-6. **addNumber** : Cette fonction est utilisée pour ajouter un nombre à la supposition actuelle de l'utilisateur et déclenche une nouvelle supposition lorsque l'utilisateur a entré trois chiffres.
-7. **updateAttempts** : Cette fonction met à jour l'affichage du nombre d'essais restants.
-8. **resetInput** : Cette fonction réinitialise la supposition de l'utilisateur.
-9. **getJoke** : Cette fonction fait une requête à une API de blagues et affiche une blague à l'utilisateur.
-10. **guessNumber** : Cette fonction est utilisée pour vérifier la supposition de l'utilisateur. Elle compare la supposition de l'utilisateur au nombre secret et met à jour l'affichage en conséquence.
-11. **updateTimerBar** : Cette fonction met à jour l'affichage de la barre de temps et arrête le jeu si le temps est écoulé.
-12. **updateRanking** : Cette fonction met à jour le classement des scores et affiche le meilleur score.
-13. **updateScoreboard** : Cette fonction met à jour l'affichage du tableau des scores.
-14. **resetGame** : Cette fonction réinitialise le jeu.
-15. **window.onload** : C'est l'événement qui se produit lorsque la page a fini de charger. Il déclenche la génération du nombre secret et l'affichage des tentatives restantes et du tableau des scores.
-
-Le jeu fonctionne en invitant l'utilisateur à deviner un nombre à trois chiffres dans un temps limité. L'utilisateur a un nombre maximum d'essais pour deviner le nombre. Si l'utilisateur devine le nombre correctement, il reçoit des applaudissements et le jeu se réinitialise. Si l'utilisateur n'arrive pas à deviner le nombre après un certain nombre d'essais ou si le temps est écoulé, le jeu se réinitialise et une blague est affichée.
-
-## Structure du projet
-
-Voici un aperçu de la structure des fichiers et des dossiers dans ce projet :
-
-```
-cadenas/
-├── applaudissements.wav
-├── clic.wav
-├── dommage.wav
-├── index.html
-├── script.js
-├── style.css
-└── README.md
-```
-
-## Contribution
-
-Les contributions sont les bienvenues ! Si vous avez des idées d'amélioration ou si vous trouvez des bugs, n'hésitez pas à ouvrir une *issue* ou une *pull request*.
-
-## Licence
-
-Ce projet est sous licence MIT. Vous êtes libre de l'utiliser, le modifier et le distribuer, sous réserve de maintenir la licence originale dans toutes les copies ou versions dérivées.
+<br>
 
 ---
 
-Merci d'avoir exploré ce projet ! N'hésitez pas à me contacter pour toute question ou suggestion d'amélioration.
+## 🎮 Comment jouer
+
+1. Entre ton **pseudo** et choisis ta **difficulté**
+2. Clique sur les chiffres du pavé (ou utilise ton **clavier**) pour former ton code
+3. Dès que tu as entré le bon nombre de chiffres, ta tentative est soumise automatiquement
+4. Le résultat s'affiche avec un code couleur :
+
+| Couleur | Signification |
+|---|---|
+| 🟢 **Vert** | Bon chiffre, bonne position |
+| 🟡 **Orange** | Bon chiffre, mauvaise position |
+| 🔴 **Rouge** | Chiffre absent du code secret |
+
+5. Trouve le code avant d'épuiser tes essais ou le temps imparti !
+
+<br>
+
+---
+
+## ⚙️ Niveaux de difficulté
+
+| Niveau | Chiffres | Temps | Essais max |
+|---|---|---|---|
+| 🟢 Facile | 4 chiffres | 90 secondes | 10 essais |
+| 🟡 Normal | 3 chiffres | 60 secondes | 7 essais |
+| 🔴 Difficile | 3 chiffres | 30 secondes | 5 essais |
+
+<br>
+
+---
+
+## ✨ Fonctionnalités
+
+- 🎯 **Déduction de code** à 3 ou 4 chiffres uniques
+- ⏱️ **Timer dynamique** qui pulse en rouge dans les dernières secondes
+- 🎹 **Saisie au clavier** supportée (chiffres + `Backspace`)
+- 🌙 **Mode sombre / clair** commutable
+- 🎉 **Animations confettis** en cas de victoire
+- 💬 **Blague en français** affichée en cas d'échec (via JokeAPI)
+- 🏆 **Classement** basé sur le score combiné (temps + essais + difficulté)
+- 📜 **Historique global** de toutes les parties jouées
+- 👤 **Système de pseudo** pour différencier les joueurs
+- 📱 **Responsive** — s'adapte au mobile et au desktop
+
+<br>
+
+---
+
+## 🗂️ Structure du projet
+
+```
+cadenas/
+├── index.html                 # Structure HTML du jeu
+├── script.js                  # Logique du jeu (JavaScript)
+├── assets/
+│   └── css/
+│       └── style.css          # Styles CSS
+├── screenshots/               # Captures d'écran pour le README
+│   ├── accueil.png
+│   ├── partie.png
+│   ├── comment_jouer.png
+│   └── victoire.png
+├── applaudissements.wav       # Son de victoire
+├── clic.wav                   # Son de clic sur le pavé
+├── dommage.wav                # Son d'échec
+└── README.md
+```
+
+<br>
+
+---
+
+## 🚀 Installation & Lancement
+
+### Méthode 1 — Ouverture directe *(simple)*
+
+Double-clique sur `index.html` pour l'ouvrir dans ton navigateur.
+
+> ⚠️ L'API de blagues peut être bloquée par le navigateur en mode fichier local (CORS). Utilise la méthode 2 pour éviter ça.
+
+### Méthode 2 — Serveur local avec VS Code *(recommandé)*
+
+1. Installe l'extension **[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)**
+2. Ouvre le dossier du projet dans VS Code
+3. Clic droit sur `index.html` → **"Open with Live Server"**
+4. Le jeu s'ouvre sur `http://127.0.0.1:5500`
+
+### Méthode 3 — Serveur local avec Node.js
+
+```bash
+# Clone le dépôt
+git clone https://github.com/YamiUtsukushi/cadenas.git
+cd cadenas
+
+# Lance un serveur local
+npx serve .
+```
+
+Ouvre ensuite `http://localhost:3000` dans ton navigateur.
+
+<br>
+
+---
+
+## 🔢 Calcul du score
+
+Le score est calculé à la fin de chaque partie gagnée selon la formule suivante :
+
+```
+Score = (1000 + bonus_essais - pénalité_temps) × multiplicateur_difficulté
+```
+
+| Paramètre | Valeur |
+|---|---|
+| Bonus essais | `(max_essais - essais_utilisés) × 100` |
+| Pénalité temps | `temps_écoulé × 10` |
+| Multiplicateur Facile | × 1 |
+| Multiplicateur Normal | × 1.5 |
+| Multiplicateur Difficile | × 2 |
+
+<br>
+
+---
+
+## 🛠️ Technologies utilisées
+
+- **HTML5** — Structure
+- **CSS3** — Styles, animations, responsive design
+- **JavaScript (Vanilla)** — Logique du jeu, timer, LocalStorage
+- **[JokeAPI](https://jokeapi.dev/)** — Blagues en français
+- **[Google Fonts](https://fonts.google.com/)** — Polices *Syne* & *Space Mono*
+
+<br>
+
+---
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues !
+
+1. Fork le projet
+2. Crée une branche : `git checkout -b feature/ma-fonctionnalite`
+3. Commit tes changements : `git commit -m "feat: ajout de ma fonctionnalité"`
+4. Push la branche : `git push origin feature/ma-fonctionnalite`
+5. Ouvre une **Pull Request**
+
+Pour signaler un bug ou suggérer une amélioration, ouvre une [issue](https://github.com/YamiUtsukushi/cadenas/issues).
+
+<br>
+
+---
+
+## 📄 Licence
+
+Ce projet est sous licence **MIT**. Tu es libre de l'utiliser, le modifier et le distribuer, sous réserve de conserver la licence originale dans toutes les copies ou versions dérivées.
+
+<br>
 
 ---
 
 ## 👨‍💻 Auteur
 
-Projet réalisé par **Jayson MOOKEN**.
-🔗 [Mon profil LinkedIn](https://www.linkedin.com/in/jayson-mooken/)
+Projet réalisé par **Jayson MOOKEN**
 
----
-
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Jayson%20Mooken-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/jayson-mooken/)
+[![GitHub](https://img.shields.io/badge/GitHub-YamiUtsukushi-181717?style=for-the-badge&logo=github)](https://github.com/YamiUtsukushi/cadenas)
