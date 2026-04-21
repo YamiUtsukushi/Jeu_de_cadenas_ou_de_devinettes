@@ -2,6 +2,12 @@
 
 Un jeu de déduction de code secret, jouable directement dans le navigateur. Devinez le nombre secret avant que le temps ne s'écoule !
 
+## 🌐 Application déployée
+
+**🔗 [https://precious-donut-bd0488.netlify.app](https://precious-donut-bd0488.netlify.app)**
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/production/deploy-status)](https://precious-donut-bd0488.netlify.app)
+
 <br>
 
 ## 📸 Aperçu
